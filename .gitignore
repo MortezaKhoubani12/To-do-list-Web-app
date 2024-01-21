@@ -9,3 +9,6 @@ db.sqlite3
 
 # migrations
 todolist/migrations
+
+# static files
+files/
