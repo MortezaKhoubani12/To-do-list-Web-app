@@ -1,0 +1,40 @@
+<!-- todolistwebapp/todolist/templates/todolist/todo_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div>
+        <div>
+            <h3>Edit list:</h3>
+            <h5>{{ todo_list.title | upper }}</h5>
+        </div>
+        <ul>
+            {% for todo in object_list %}
+            <li>
+                <div>
+                    <div
+                        role="button"
+                        onclick="location.href='#'">
+                        <i class="fa fa-star {% if todo.starred %}star-yellow{% else %}star-grey{% endif %}"></i>
+                        {{ todo.title }}
+                        (Due {{ todo.due_date | date:"l, F j" }})
+                        <span class="priority {% if todo.priority_level == "high" %}priority-high
+                                              {% elif todo.priority_level == "normal" %}priority-normal
+                                              {% else %}priority-low{% endif %}">{{ todo.priority_level }}</span>
+                        <span class="completed {% if todo.completed %}true{% endif %}"></span>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <p>There are no to-do tasks in this list.</p>
+            {% endfor %}
+        </ul>
+        <p>
+            <input
+                value="Add a new task"
+                type="button"
+                onclick="location.href='#'" />
+        </p>
+    </div>
+</div>
+{% endblock %}

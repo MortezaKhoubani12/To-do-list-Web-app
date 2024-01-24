@@ -23,16 +23,16 @@ def validate_image(file):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.FileField(upload_to='files/user_avatar/', validators= [validate_image], null=True, blank=True)
+    avatar = models.FileField(upload_to='files/user_avatar/', validators=[validate_image], null=True, blank=True)
 
-    def __str__(self):
-        # return self.user.username
-        return self.user.get_full_name()
+    # def __str__(self):
+    #     # return self.user.username
+    #     return self.user.get_full_name()
 
 
 class ToDoList(models.Model):
     title = models.CharField(max_length=100, unique=True, null=False, blank=False)
-    cover = models.FileField(upload_to='files/list_cover/', validators= [validate_image], null=True, blank=True)
+    cover = models.FileField(upload_to='files/list_cover/', validators=[validate_image], null=True, blank=True)
     user_list = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -56,8 +56,8 @@ class ToDoTask(models.Model):
     def get_absolute_url(self):
         return reverse("task-update", args=[str(self.todo_list.id), str(self.id)])
 
-    def __str__(self):
-        return f"{self.title}: due {self.due_date}"
+    # def __str__(self):
+    #     return f"{self.title}: due {self.due_date}"
 
     class Meta:
         ordering = ["due_date"]

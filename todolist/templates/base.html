@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <style>
+    {#    CSS style for use color star instead True or False#}
+        .star {font-size: 20px;}
+        .star-yellow {color: gold;}
+        .star-grey {color: darkgrey;}
+
+    {#    CSS style for use check box completed instead True or False#}
+        .completed {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 20px;
+            font-family: Arial, serif;
+        }
+        .completed::after {content: "";}
+        .completed.true::after {content: "✔";}
+
+    {#CSS style for use colored priority instead black#}
+         .priority {
+            font-size: 18px;
+        }
+        .priority-low {color: green;}
+        .priority-normal {color: cornflowerblue;}
+        .priority-high {color: red;}
+    </style>
+    <title>Django To-do Lists</title>
+</head>
+<body>
+    <div>
+            <h1 onclick="location.href='{% url "index" %}'">
+                Django To-do Lists
+            </h1>
+        </div>
+        <div>
+            {% block content %}
+            This content will be replaced by different html code for each page.
+            {% endblock %}
+        </div>
+</body>
+</html>
