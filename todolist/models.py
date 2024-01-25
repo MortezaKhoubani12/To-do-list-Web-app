@@ -47,11 +47,11 @@ class ToDoTask(models.Model):
     description = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(default=datetime.now, blank=False)
     due_date = models.DateTimeField(default=one_week_hence)
-    todo_list = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     starred = models.BooleanField(default=False)
     PRIORITY_CHOICES = [('low', 'Low'), ('normal', 'Normal'), ('high', 'High')]
     priority_level = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='normal')
+    todo_list = models.ForeignKey(ToDoList,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse("task-update", args=[str(self.todo_list.id), str(self.id)])

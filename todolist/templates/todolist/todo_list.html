@@ -15,6 +15,7 @@
                     <div
                         role="button"
                         onclick="location.href='#'">
+                        '{% url "task-update" todo_list.id todo.id %}'">
                         <i class="fa fa-star {% if todo.starred %}star-yellow{% else %}star-grey{% endif %}"></i>
                         {{ todo.title }}
                         (Due {{ todo.due_date | date:"l, F j" }})
@@ -33,7 +34,7 @@
             <input
                 value="Add a new task"
                 type="button"
-                onclick="location.href='#'" />
+                onclick="location.href='{% url "task-add" todo_list.id %}'" />
         </p>
     </div>
 </div>

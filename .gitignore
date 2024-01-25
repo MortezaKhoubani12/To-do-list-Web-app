@@ -4,9 +4,6 @@
 # virtualenv
 todolistenv/
 
-# database
-db.sqlite3
-
 # migrations
 todolist/migrations
 

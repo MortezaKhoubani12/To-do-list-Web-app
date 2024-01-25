@@ -10,6 +10,8 @@
         <div
             role="button"
             onclick="location.href='{% url "list" todolist.id %}'">
+{#            <img src="{{ todolist.cover.url }}" width="100" height="100">#}
+            <img src="{{ todolist.cover.url }}" width="50%" height="50%" alt="">
             {{ todolist.title }}
         </div>
     </li>
@@ -17,5 +19,10 @@
     <h4>You have no lists!</h4>
     {% endfor %}
 </ul>
-
+<p>
+    <input
+        value="Add a new list"
+        type="button"
+        onclick="location.href='{% url "list-add" %}'"/>
+</p>
 {% endblock %}
