@@ -1,4 +1,3 @@
-<!-- todolistwebapp/todolist/templates/todolist/todo_list.html -->
 {% extends "base.html" %}
 
 {% block content %}
@@ -14,10 +13,11 @@
                 <div>
                     <div
                         role="button"
-                        onclick="location.href='#'">
-                        '{% url "task-update" todo_list.id todo.id %}'">
+                        onclick="location.href='{% url "task-update" todo_list.id todo.id %}'">
                         <i class="fa fa-star {% if todo.starred %}star-yellow{% else %}star-grey{% endif %}"></i>
-                        {{ todo.title }}
+{#                        <style>#}
+                            {{ todo.title }}
+                        {#<style>#}
                         (Due {{ todo.due_date | date:"l, F j" }})
                         <span class="priority {% if todo.priority_level == "high" %}priority-high
                                               {% elif todo.priority_level == "normal" %}priority-normal

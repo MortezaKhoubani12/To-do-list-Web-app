@@ -10,8 +10,9 @@
         <div
             role="button"
             onclick="location.href='{% url "list" todolist.id %}'">
-{#            <img src="{{ todolist.cover.url }}" width="100" height="100">#}
-            <img src="{{ todolist.cover.url }}" width="50%" height="50%" alt="">
+{#            {% if todolist.cover %}#}
+                <img src="{{ todolist.cover.url }}" width="50" height="50" alt="todolist.title">
+{#            {% endif %}#}
             {{ todolist.title }}
         </div>
     </li>

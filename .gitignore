@@ -6,6 +6,8 @@ todolistenv/
 
 # migrations
 todolist/migrations
+accounts/migrations
 
-# static files
-files/
+# static media
+media/
+static/

@@ -1,5 +1,3 @@
-# todolistwebapp/todolist/models.py
-
 from django.utils import timezone
 from django.db import models
 from django.urls import reverse
@@ -15,7 +13,7 @@ def one_week_hence():
 def validate_image(file):
     image_format = file.name.split('.')[-1].lower()
     if image_format not in ['jpg', 'png']:
-        raise ValidationError('Unsupported file format. Only jpg and png files are allowed !')
+        raise ValidationError('Unsupported file format. Only jpg and png media are allowed !')
     image_size = file.size
     if image_size > 500 * 1024:
         raise ValidationError('File size is too large.Maximum size is 500 KB !')
@@ -23,16 +21,17 @@ def validate_image(file):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.FileField(upload_to='files/user_avatar/', validators=[validate_image], null=True, blank=True)
+    avatar = models.FileField(upload_to='user_avatar/', validators=[validate_image], null=True, blank=True)
 
-    # def __str__(self):
-    #     # return self.user.username
-    #     return self.user.get_full_name()
+    def __str__(self):
+        # return self.user.username
+        return self.user.get_full_name()
 
 
 class ToDoList(models.Model):
     title = models.CharField(max_length=100, unique=True, null=False, blank=False)
-    cover = models.FileField(upload_to='files/list_cover/', validators=[validate_image], null=True, blank=True)
+    cover = models.FileField(upload_to='list_cover/', validators=[validate_image], null=True, blank=True,
+                             default='list_cover/default.png')
     user_list = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -45,13 +44,14 @@ class ToDoList(models.Model):
 class ToDoTask(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
     description = models.TextField(null=True, blank=True)
-    created_date = models.DateTimeField(default=datetime.now, blank=False)
+    created_date = models.DateTimeField(default=datetime.now(), blank=False)
+    # timezone.now(),auto_now_add = True,
     due_date = models.DateTimeField(default=one_week_hence)
     completed = models.BooleanField(default=False)
     starred = models.BooleanField(default=False)
     PRIORITY_CHOICES = [('low', 'Low'), ('normal', 'Normal'), ('high', 'High')]
     priority_level = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='normal')
-    todo_list = models.ForeignKey(ToDoList,on_delete=models.CASCADE)
+    todo_list = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse("task-update", args=[str(self.todo_list.id), str(self.id)])
@@ -61,6 +61,3 @@ class ToDoTask(models.Model):
 
     class Meta:
         ordering = ["due_date"]
-
-    # class Meta:
-    #     ordering = ["priority_level"]

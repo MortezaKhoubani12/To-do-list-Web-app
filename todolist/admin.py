@@ -19,7 +19,7 @@ admin.site.register(ToDoList, ToDoListAdmin)
 
 class ToDoTaskAdmin(admin.ModelAdmin):
     list_display = ['title', 'due_date', 'list_title', 'completed', 'starred', 'priority_level']
-    list_filter = ['starred', 'completed']
+    list_filter = ['starred', 'completed', 'priority_level']
 
     def list_title(self, obj):
         return obj.todo_list.title
