@@ -21,7 +21,13 @@ def validate_image(file):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.FileField(upload_to='user_avatar/', validators=[validate_image], null=True, blank=True)
+    avatar = models.FileField(
+        upload_to='user_avatar/',
+        default='user_avatar/avatar.jpg',
+        validators=[validate_image],
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         # return self.user.username
@@ -30,8 +36,12 @@ class UserProfile(models.Model):
 
 class ToDoList(models.Model):
     title = models.CharField(max_length=100, unique=True, null=False, blank=False)
-    cover = models.FileField(upload_to='list_cover/', validators=[validate_image], null=True, blank=True,
-                             default='list_cover/default.png')
+    cover = models.FileField(upload_to='list_cover/',
+                             default='list_cover/default.png',
+                             validators=[validate_image],
+                             null=True,
+                             blank=True
+                             )
     user_list = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -44,8 +54,9 @@ class ToDoList(models.Model):
 class ToDoTask(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
     description = models.TextField(null=True, blank=True)
-    created_date = models.DateTimeField(default=datetime.now(), blank=False)
-    # timezone.now(),auto_now_add = True,
+    # created_date = models.DateTimeField(default=datetime.now(), blank=False)
+    created_date = models.DateTimeField(default=timezone.now(), blank=False)
+    # auto_now_add = True,
     due_date = models.DateTimeField(default=one_week_hence)
     completed = models.BooleanField(default=False)
     starred = models.BooleanField(default=False)

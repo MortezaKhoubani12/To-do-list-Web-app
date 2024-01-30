@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 {#    <a target="_blank" href="https://icons8.com/icon/ODpnKRNoAqSk/done">Done</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>#}
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+{#    <link rel="icon" href="favicon.ico" type="image/x-icon">#}
+    <link rel="icon" href="https://icons8.com/icon/ODpnKRNoAqSk/done.ico" type="image/x-icon">
     <style>
     {#    CSS style for use color star instead True or False#}
         .star {font-size: 20px;}
@@ -36,16 +37,26 @@
     </style>
     <title>To-do Lists</title>
 </head>
+
 <body>
     <div>
-            <h1 onclick="location.href='{% url "index" %}'">
+{#        <a href="{%url 'home'%}"><i class="bi bi-house-fill"></i> Home</a>#}
+        {% if user.is_authenticated %}
+            <h3 onclick="location.href='{% url "index" %}'">
                 Home
-            </h1>
-        </div>
-        <div>
+            </h3>
+{#        {% else %}#}
+{#            <ul>#}
+{#                <li>#}
+{#                    <a href="{% url 'accounts:signup' %}">signupp</a>#}
+{#                </li>#}
+{#            </ul>#}
+        {% endif %}
+    </div>
+    <div>
             {% block content %}
             This content will be replaced by different html code for each page.
             {% endblock %}
-        </div>
+    </div>
 </body>
 </html>

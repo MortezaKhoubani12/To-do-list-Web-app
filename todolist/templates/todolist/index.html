@@ -1,17 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 <!--index.html-->
-{% if object_list %}
-<h3>All my lists</h3>
-{% endif %}
+{#    {% if user.profile %}#}
+
+{#    <img src="{{ profile.avatar.url }}"             alt="{{ user.username }}"/>#}
+{#             class="avatar"#}
+{#             accept=".jpg,.jpeg,.png"/>#}
+{#    {% endif %}#}
+<nav>
+    <ul>
+        <li>
+            <form class="logout-link" action="{% url "accounts:logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+    <h5 class="text-center">{{ user.username | title }}</h5>
+
+    {% if object_list %}
+        <h3>All my lists</h3>
+    {% endif %}
 <ul>
     {% for todolist in object_list %}
     <li>
         <div
             role="button"
-            onclick="location.href='{% url "list" todolist.id %}'">
+            onclick="location.href='{% url 'list' todolist.id %}'">
 {#            {% if todolist.cover %}#}
-                <img src="{{ todolist.cover.url }}" width="50" height="50" alt="todolist.title">
+            <img src="{{ todolist.cover.url }}" width="50" height="50" alt="{{ user.username }}"/>
+            <img src="{{ todolist.cover.url }}" width="50" height="50" alt="todolist.title">
 {#            {% endif %}#}
             {{ todolist.title }}
         </div>
@@ -24,6 +43,6 @@
     <input
         value="Add a new list"
         type="button"
-        onclick="location.href='{% url "list-add" %}'"/>
+        onclick="location.href='{% url 'list-add' %}'"/>
 </p>
 {% endblock %}
