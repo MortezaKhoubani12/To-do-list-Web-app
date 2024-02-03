@@ -35,6 +35,10 @@
                 value="Add a new task"
                 type="button"
                 onclick="location.href='{% url "task-add" todo_list.id %}'" />
+            <input
+                value="Delete this list"
+                type="button"
+                onclick="location.href='{% url "list-delete" todo_list.id %}'" />
         </p>
     </div>
 </div>

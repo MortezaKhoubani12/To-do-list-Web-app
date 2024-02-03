@@ -2,11 +2,12 @@
 {% block content %}
 <h1>Sign up</h1>
 
-<form class="site-form" action="{% url 'accounts:signup' %}" method="post">
-    {{ form }}
+<form method="post" enctype="multipart/form-data">
+{#<form class="site-form" action="{% url 'accounts:signup' %}" method="post">#}
     {% csrf_token %}
+    {{ form.as_p }}
     <input
-        value="SignUp"
+        value="Sign Up"
         type="submit" >
     <input
         value="Cancel"

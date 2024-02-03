@@ -15,6 +15,13 @@
         value="Cancel"
         type="button"
         onclick="location.href='{% url "list" todo_list.id %}'">
+    {% if object %}
+        <input
+            value="Delete this task"
+            type="button"
+            onclick="location.href=
+            '{% url "task-delete" todo_list.id object.id %}'">
+    {% endif %}
 </form>
 
 {% endblock %}

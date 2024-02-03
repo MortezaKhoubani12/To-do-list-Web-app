@@ -5,7 +5,10 @@
 <h3>{{ title }}</h3>
 <div>
     <div>
-        <form method="post" enctype="multipart/form-data" action="{% url 'list-add' %}" >
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            action="{% url 'list-add' %}" >
             {% csrf_token %}
             {{ form.as_p }}
             <input
@@ -14,7 +17,7 @@
             <input
                 value="Cancel"
                 type="button"
-                onclick="location.href='{% url "index" %}';">
+                onclick="location.href='{% url "index" %}'">
         </form>
     </div>
 </div>

@@ -1,24 +1,27 @@
 {% extends "base.html" %}
-{% block content %}
+{% block profile %}
 <!--index.html-->
-{#    {% if user.profile %}#}
+    <div style="text-align: right;">
+{#        {% if user.profile %}         #}
+        <span
+        style="display: inline-block;">
+            <img src="{{ user.profile.avatar.url }}"
+            alt="{{ user.username }}"
+            class="avatar"/>
+            <h5 class="text-right">{{ user.username | title }}</h5>
+        </span>
+{#        {% endif %}#}
+    </div>
 
-{#    <img src="{{ profile.avatar.url }}"             alt="{{ user.username }}"/>#}
-{#             class="avatar"#}
-{#             accept=".jpg,.jpeg,.png"/>#}
-{#    {% endif %}#}
-<nav>
-    <ul>
-        <li>
-            <form class="logout-link" action="{% url "accounts:logout" %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
-        </li>
-    </ul>
-</nav>
-    <h5 class="text-center">{{ user.username | title }}</h5>
+    <div style="text-align: right;">
+        <form class="logout-link" action="{% url "accounts:logout" %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+        </form>
+    </div>
+{% endblock %}
 
+{% block content %}
     {% if object_list %}
         <h3>All my lists</h3>
     {% endif %}
@@ -28,10 +31,7 @@
         <div
             role="button"
             onclick="location.href='{% url 'list' todolist.id %}'">
-{#            {% if todolist.cover %}#}
-            <img src="{{ todolist.cover.url }}" width="50" height="50" alt="{{ user.username }}"/>
             <img src="{{ todolist.cover.url }}" width="50" height="50" alt="todolist.title">
-{#            {% endif %}#}
             {{ todolist.title }}
         </div>
     </li>

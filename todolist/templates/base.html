@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-{#    <a target="_blank" href="https://icons8.com/icon/ODpnKRNoAqSk/done">Done</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>#}
-{#    <link rel="icon" href="favicon.ico" type="image/x-icon">#}
-    <link rel="icon" href="https://icons8.com/icon/ODpnKRNoAqSk/done.ico" type="image/x-icon">
+    <link rel="icon" href="home.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <style>
     {#    CSS style for use color star instead True or False#}
         .star {font-size: 20px;}
@@ -35,23 +35,18 @@
         .priority-normal {color: cornflowerblue;}
         .priority-high {color: red;}
     </style>
+
     <title>To-do Lists</title>
 </head>
 
 <body>
-    <div>
-{#        <a href="{%url 'home'%}"><i class="bi bi-house-fill"></i> Home</a>#}
+    <div style="display: flex; align-items: center; justify-content: space-between;">
         {% if user.is_authenticated %}
-            <h3 onclick="location.href='{% url "index" %}'">
-                Home
-            </h3>
-{#        {% else %}#}
-{#            <ul>#}
-{#                <li>#}
-{#                    <a href="{% url 'accounts:signup' %}">signupp</a>#}
-{#                </li>#}
-{#            </ul>#}
+            <h3 onclick="location.href='{% url "index" %}'">Home</h3>
         {% endif %}
+        {% block profile %}
+
+        {% endblock %}
     </div>
     <div>
             {% block content %}
