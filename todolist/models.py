@@ -2,7 +2,6 @@ from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.core.exceptions import ValidationError
 
 
@@ -68,3 +67,4 @@ class ToDoTask(models.Model):
 
     class Meta:
         ordering = ["due_date"]
+

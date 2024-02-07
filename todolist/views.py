@@ -1,7 +1,7 @@
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models import *
 from .forms import *
+from .filters import *
 
 
 class ListListView(ListView):
@@ -17,11 +17,15 @@ class TaskListView(ListView):
     template_name = "todolist/todo_list.html"
 
     def get_queryset(self):
-        return ToDoTask.objects.filter(todo_list_id=self.kwargs["list_id"])
+        tasks = ToDoTask.objects.filter(todo_list_id=self.kwargs["list_id"])
+        task_filter = TaskFilter(self.request.GET, queryset=tasks)
+        tasks = task_filter.qs
+        return tasks
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context["todo_list"] = ToDoList.objects.get(id=self.kwargs["list_id"])
+        context["task_filter"] = TaskFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 
@@ -79,7 +83,6 @@ class TaskUpdate(UpdateView):
         "completed",
         "starred",
         "priority_level",
-        # "created_date",
     ]
 
     def get_context_data(self):

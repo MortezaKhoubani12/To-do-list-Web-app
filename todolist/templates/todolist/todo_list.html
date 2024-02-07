@@ -1,6 +1,30 @@
 {% extends "base.html" %}
-
+{#{% load crispy_forms_filters %}#}
+{#{% load crispy_forms_tags %}#}
 {% block content %}
+
+<div style="text-align: right;">
+    <form method="get">
+        <label for="starred">Starred:</label>
+        <div style="display: inline-block; float: right;">
+            {{ task_filter.form.starred }}</div>
+
+        <label for="completed">Completed:</label>
+        <div style="display: inline-block; float: right;">
+            {{ task_filter.form.completed }}</div>
+
+        <label for="priority_level">Priority level:</label>
+        <div style="display: inline-block; float: right; ">
+            {{ task_filter.form.priority_level }}</div>
+
+        <label for="due_date">Due date:</label>
+        <div style="display: inline-block; float: right;">
+            {{ task_filter.form.due_date }}</div>
+    {#  {{ task_filter.form|crispy }}#}
+        <button type="submit">Filter</button>
+    </form>
+</div>
+
 <div>
     <div>
         <div>
@@ -15,9 +39,9 @@
                         role="button"
                         onclick="location.href='{% url 'task-update' todo_list.id todo.id %}'">
                         <i class="fa fa-star {% if todo.starred %}star-yellow{% else %}star-grey{% endif %}"></i>
-{#                        <style>#}
-                            {{ todo.title }}
-                        {#<style>#}
+{#                        <style= " font= >#}
+                        <b>{{ todo.title }}</b>
+                        {#</style>#}
                         (Due {{ todo.due_date | date:"l, F j" }})
                         <span class="priority {% if todo.priority_level == "high" %}priority-high
                                               {% elif todo.priority_level == "normal" %}priority-normal

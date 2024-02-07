@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os.path
 from pathlib import Path
+# from django.core.checks import templates
+# from todolistwebapp.urls import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,6 +21,8 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
 
+# TEMPLATE_DIRS = (os.path.join(os.path.dirname(os.path.realpath(__file__)),
+#                  "../todolist/templates"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_filters',
+    # 'crispy_forms',
     'todolist',
     'accounts',
 ]
@@ -129,4 +135,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CRISPY_TEMPLATE_PACK = 'uni-form'
 
