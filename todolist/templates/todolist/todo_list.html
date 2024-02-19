@@ -29,7 +29,10 @@
     <div>
         <div>
             <h3>Edit list:</h3>
-            <h5>{{ todo_list.title | upper }}</h5>
+            <div style="display: inline-block;">
+                <img src="{{ todolist.cover.url }}" width="50" height="50" alt="todolist.title">
+                <h5>{{ todo_list.title | upper }}</h5>
+            </div>
         </div>
         <ul>
             {% for todo in object_list %}
@@ -39,13 +42,11 @@
                         role="button"
                         onclick="location.href='{% url 'task-update' todo_list.id todo.id %}'">
                         <i class="fa fa-star {% if todo.starred %}star-yellow{% else %}star-grey{% endif %}"></i>
-{#                        <style= " font= >#}
                         <b>{{ todo.title }}</b>
-                        {#</style>#}
                         (Due {{ todo.due_date | date:"l, F j" }})
                         <span class="priority {% if todo.priority_level == "high" %}priority-high
                                               {% elif todo.priority_level == "normal" %}priority-normal
-                                              {% else %}priority-low{% endif %}">{{ todo.priority_level }}</span>
+                                              {% else %}priority-low{% endif %}"><b>{{ todo.priority_level }}</b></span>
                         <span class="completed {% if todo.completed %}true{% endif %}"></span>
                     </div>
                 </div>
@@ -63,6 +64,12 @@
                 value="Delete this list"
                 type="button"
                 onclick="location.href='{% url "list-delete" todo_list.id %}'" />
+            <input
+                value="Export to .txt"
+                type="button"
+                onclick="location.href='{% url "export_to_text" todo_list.id %}'" />
+
+{#            <a href="{% url 'export_to_text' context.context.list_id %}?{{ task_filter.form.query_string }}">Export to text</a>#}
         </p>
     </div>
 </div>

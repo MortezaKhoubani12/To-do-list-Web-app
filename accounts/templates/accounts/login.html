@@ -6,13 +6,13 @@
     {{ form }}
     {% csrf_token %}
     <input type="submit" value="Login">
-
-    <ul>
+<div>
+{#    <ul>#}
 {#        <li>#}
-            <a href="{% url 'accounts:signup' %}">Signup</a>
+            <a href="{% url 'accounts:signup' %}">Sign up</a>
 {#        </li>#}
-    </ul>
-
+{#    </ul>#}
+</div>
 </form>
 
 {% endblock %}

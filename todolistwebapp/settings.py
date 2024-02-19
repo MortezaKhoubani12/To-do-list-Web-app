@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-ad$hd9918!%$q+c*=7a%&4k4-=rmj=xi51v0fb9mnn@q*btyrl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -90,7 +90,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres-user',
         'PASSWORD': 'postgrespass',
-        'HOST': 'localhost',
+        # 'HOST': 'localhost',
+        'HOST': 'todolist-webapp_postgresql',
         'PORT': '5432'
     }
 }

@@ -67,4 +67,3 @@ class ToDoTask(models.Model):
 
     class Meta:
         ordering = ["due_date"]
-

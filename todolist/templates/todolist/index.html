@@ -5,7 +5,7 @@
 {#        {% if user.profile %}         #}
         <span
         style="display: inline-block;">
-            <img src="{{ user.profile.avatar.url }}"
+            <img src="{{ todolist.avatar.url }}" width="50" height="50"
             alt="{{ user.username }}"
             class="avatar"/>
             <h5 class="text-right">{{ user.username | title }}</h5>
@@ -43,6 +43,10 @@
     <input
         value="Add a new list"
         type="button"
-        onclick="location.href='{% url 'list-add' %}'"/>
+        onclick="location.href='{% url "list-add" %}'"/>
+    <input
+        value="Export to .txt"
+        type="button"
+        onclick="location.href='{% url 'export_to_text_all' all_lists=True %}'" />
 </p>
 {% endblock %}

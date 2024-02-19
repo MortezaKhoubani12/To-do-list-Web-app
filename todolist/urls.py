@@ -20,4 +20,9 @@ urlpatterns = [
          name="task-update"),
     path("list/<int:list_id>/task/<int:pk>/delete/", views.TaskDelete.as_view(),
          name="task-delete"),
+
+    path("export/export_to_text", views.export_to_text, {"all_lists": True},
+         name="export_to_text_all"),
+    path("list/<int:list_id>/export/export_to_text", views.export_to_text,
+         name="export_to_text"),
 ]

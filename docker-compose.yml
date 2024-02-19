@@ -1,6 +1,22 @@
 version: "3.8"
 
 services:
+  todolist-django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/todolistwebapp
+      - todolist_static_volume:/todolistwebapp/static
+      - todolist_media_volume:/todolistwebapp/media
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - todolist-webapp_network
+    depends_on:
+      - todolist-webapp_postgresql
+
   todolist-webapp_postgresql:
     image: postgres:12
     container_name: todolist-webapp_postgresql
@@ -15,6 +31,10 @@ services:
 
 volumes:
   todolist-webapp_postgresql:
+    external: true
+  todolist_static_volume:
+    external: true
+  todolist_media_volume:
     external: true
 
 networks:

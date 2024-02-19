@@ -1,7 +1,12 @@
+import io
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import *
 from .filters import *
+from .models import *
+from django.http import HttpResponse
+import datetime
+from django.shortcuts import get_object_or_404
 
 
 class ListListView(ListView):
@@ -112,3 +117,58 @@ class TaskDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context["todo_list"] = self.object.todo_list
         return context
+
+
+def export_to_text(request, list_id=None, all_lists=False):
+    user_profile = UserProfile.objects.get(user=request.user)
+    file_name = f"todo_list_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    # create a file object in memory
+    file = io.StringIO()
+    if all_lists:
+        lists = ToDoList.objects.filter(user_list=user_profile)
+
+        file.write(f"Exported To Do Lists for {user_profile.user.username} on {datetime.datetime.now().date()}\n")
+        file.write("=" * 80 + "\n")
+
+        for my_list in lists:
+            file.write(f"List: {my_list.title}\n")
+            file.write("-" * 80 + "\n")
+
+            tasks = ToDoTask.objects.filter(todo_list=my_list)
+            for task in tasks:
+                file.write(f"Task: {task.title}\n")
+                file.write(f"Description: {task.description}\n")
+                file.write(f"Priority: {task.priority_level}\n")
+                file.write(f"Due Date: {task.due_date}\n")
+                file.write(f"Starred: {task.starred}\n")
+                file.write(f"Completed: {task.completed}\n")
+                file.write("\n")
+            file.write("\n")
+    else:
+        # get the specific list by its id
+        my_list = get_object_or_404(ToDoList, id=list_id)
+
+        file.write(f"Exported To Do List for {user_profile.user.username} on {datetime.datetime.now().date()}\n")
+        file.write("=" * 80 + "\n")
+        file.write(f"List: {my_list.title}\n")
+        file.write("-" * 80 + "\n")
+
+        tasks = ToDoTask.objects.filter(todo_list=my_list)
+        task_filter = TaskFilter(request.GET, queryset=tasks)
+        tasks = task_filter.qs
+
+        for task in tasks:
+            file.write(f"Task: {task.title}\n")
+            file.write(f"Description: {task.description}\n")
+            file.write(f"Priority: {task.priority_level}\n")
+            file.write(f"Due Date: {task.due_date}\n")
+            file.write(f"Starred: {task.starred}\n")
+            file.write(f"Completed: {task.completed}\n")
+            file.write("\n")
+
+    file_content = file.getvalue()
+    file.close()
+
+    response = HttpResponse(file_content, content_type="text/plain")
+    response["Content-Disposition"] = f"attachment; filename={file_name}"
+    return response

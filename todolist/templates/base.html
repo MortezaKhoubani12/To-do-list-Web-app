@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <link rel="icon" href="home.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon">
 
     <style>
     {#    CSS style for use color star instead True or False#}
@@ -40,8 +39,9 @@
 </head>
 
 <body>
-    <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: inline-block; align-items: center; justify-content: space-between;">
         {% if user.is_authenticated %}
+            <img src="{{ MEDIA_URL }}home.ico" alt="Homepage image" />
             <h3 onclick="location.href='{% url "index" %}'">Home</h3>
         {% endif %}
         {% block profile %}
