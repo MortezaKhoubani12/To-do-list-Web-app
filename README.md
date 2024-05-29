@@ -27,6 +27,7 @@ Template is accessable by docker containers which you can see with below command
 $ docker ps -a
 
 Output should be like this:
+
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 05103904dcb8        ae80efb17475        "python manage.py ru…"   2 hours ago         Up 2 hours          0.0.0.0:8000->8000/tcp   todolistwebapp-todolist-django-1
 4a183e90a9eb        postgres:10         "docker-entrypoint.s…"   2 hours ago         Up 2 hours          0.0.0.0:5432->5432/tcp   todolist-webapp_postgresql
